@@ -1,3 +1,6 @@
+set(ROS_EDITION "ROS2")
+set(HUMBLE_ROS "humble")
+
 # judge which cmake codes to use 
 if(ROS_EDITION STREQUAL "ROS1")
 
@@ -246,7 +249,7 @@ else(ROS_EDITION STREQUAL "ROS2")
   )
 
   ## make sure the livox_lidar_sdk_shared library is installed
-  find_library(LIVOX_LIDAR_SDK_LIBRARY liblivox_lidar_sdk_shared.so /usr/local/lib REQUIRED)
+  find_library(LIVOX_LIDAR_SDK_LIBRARY livox_lidar_sdk_shared REQUIRED)
 
   ##
   find_path(LIVOX_LIDAR_SDK_INCLUDE_DIR
@@ -330,7 +333,6 @@ else(ROS_EDITION STREQUAL "ROS2")
 
   ament_auto_package(INSTALL_TO_SHARE
     config
-    launch_ROS2
   )
 
 endif()
