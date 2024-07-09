@@ -5,7 +5,6 @@ if($ENV{ROS_VERSION} STREQUAL "1")
 
   cmake_minimum_required(VERSION 3.0)
 
-
   #---------------------------------------------------------------------------------------
   # Start livox_ros_driver2 project
   #---------------------------------------------------------------------------------------
@@ -236,7 +235,7 @@ else($ENV{ROS_VERSION} STREQUAL "2")
   )
 
   ## make sure the livox_lidar_sdk_shared library is installed
-  find_library(LIVOX_LIDAR_SDK_LIBRARY livox_lidar_sdk_shared REQUIRED)
+  find_library(LIVOX_LIDAR_SDK_LIBRARY liblivox_lidar_sdk_shared.so REQUIRED)
 
   ##
   find_path(LIVOX_LIDAR_SDK_INCLUDE_DIR
@@ -272,14 +271,14 @@ else($ENV{ROS_VERSION} STREQUAL "2")
   target_include_directories(${PROJECT_NAME} PRIVATE ${livox_sdk_INCLUDE_DIRS})
 
   # get include directories of custom msg headers
-  if(($ENV{ROS_DISTRO} STREQUAL "humble") OR ($ENV{ROS_DISTRO} STREQUAL "jazzy"))
-    rosidl_get_typesupport_target(cpp_typesupport_target
-    ${LIVOX_INTERFACES} "rosidl_typesupport_cpp")
-    target_link_libraries(${PROJECT_NAME} "${cpp_typesupport_target}")
-  else()
+  if($ENV{ROS_DISTRO} STREQUAL "foxy")
     set(LIVOX_INTERFACE_TARGET "${LIVOX_INTERFACES}__rosidl_typesupport_cpp")
     add_dependencies(${PROJECT_NAME} ${LIVOX_INTERFACES})
     get_target_property(LIVOX_INTERFACES_INCLUDE_DIRECTORIES ${LIVOX_INTERFACE_TARGET} INTERFACE_INCLUDE_DIRECTORIES)
+  else()
+    rosidl_get_typesupport_target(cpp_typesupport_target
+    ${LIVOX_INTERFACES} "rosidl_typesupport_cpp")
+    target_link_libraries(${PROJECT_NAME} "${cpp_typesupport_target}")
   endif()
 
   # include file direcotry

@@ -3,11 +3,11 @@
 <package format="3">
   <name>livox_ros_driver2</name>
   <version>1.0.0</version>
-  <description>The ROS device driver for Livox 3D LiDARs, for ROS2</description>
+  <description>The ROS device driver for Livox 3D LiDARs</description>
   <maintainer email="dev@livoxtech.com">feng</maintainer>
   <license>MIT</license>
 
-    <!-- Common ROS 1 / ROS 2 dependencies -->
+  <!-- Common ROS 1 / ROS 2 dependencies -->
   <build_depend>ros_environment</build_depend>
 
   <!-- ROS1 dependencies -->
@@ -38,12 +38,12 @@
   <depend>pcl_ros</depend>
   <depend>git</depend>
   <depend>apr</depend>
-  
-  <depend>libpcl-all-dev</depend>
+
+  <!-- Livox-SDK2 dependencies -->
   <depend>livox_sdk2</depend>
 
   <export>
-      <build_type condition="$ROS_VERSION == 2">ament_cmake</build_type>
-      <build_type condition="$ROS_VERSION == 1">catkin</build_type>
+    <build_type condition="$ROS_VERSION == 2">ament_cmake</build_type>
+    <build_type condition="$ROS_VERSION == 1">catkin</build_type>
   </export>
 </package>
